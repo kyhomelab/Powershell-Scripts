@@ -1,0 +1,192 @@
+#ViperTechinternet password is ''
+# Check if the script is running as an administrator and relaunch with elevated privileges if necessary
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    $arguments = "& '$($myinvocation.mycommand.definition)'"
+    Start-Process powershell -Verb RunAs -ArgumentList $arguments
+    Exit
+}
+
+# Define the ASCII art
+$asciiArt = @"
+-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+
+ .#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@= 
+   +@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:  
+    :%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#.   
+      *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+     
+       =@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-      
+        -@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:       
+         .*##########################@@@@@@@@@@@@@@@@@@@########################*.        
+                                     @@@@@@@@@@@@@@@@@@*                                  
+                                     @@@@@@@@@@@@@@@@@@*                                  
+                                     @@@@@@@@@@@@@@@@@@*                                  
+                                     +++=====+++**##%@@*                                  
+                                 .::--========--::.                                       
+                        .-=+*%@@@@@@@@@@@@@@@@@@@@@@@%#*+=:.                              
+                  .-+*%@@@@@%#*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+:                          
+               -*%@@@@@@@%#+++=#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*.                       
+             +@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*                      
+             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#*=--=+*%%.                    
+             .%@@@@%=---=*#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+:   .                    
+               =@@@:        .=#@@@@@@@@@@@@#*+=-==+*@@@@@@@@@@@@@@@+.                     
+                 =@+            =@@@@@@#=.     ...   :*@@@@@@@@@@@@@@*.                   
+                   -            +@@@@*.   -+%@@@@@@@#= .%@@@@@@@@@@@@@@=                  
+                               :@@@%:  -#@@@@@@@@@@@@@@:.@@@@@@@@@@@@@@+                  
+                              .@@@#  :@@@@@@@@@@@@@@@@@* #@@@@@@@@@@@@@.                  
+                             :@@%=   %@@@@@@@@@@@@@@@@@* #@@@@@@@@@@@@:                   
+                           .+#=.     @@@@@@@@@@@@@@@@@@* #@@@@@@@@@@%.                    
+                           .         @@@@@@@@@@@@@@@@@@* #@@@@@@@@@=                      
+                                     @@@@@@@@@@@@@@@@@@* #@@@@@@@=                        
+                                     @@@@@@@@@@@@@@@@@@* #@@@@#-                          
+                              -+*%-  @@@@@@@@@@@@@@@@@@* #@%+.                            
+                          :+%@@@@@-  @@@@@@@@@@@@@@@@@@* +-                               
+                       .+%@@@@@@@@-  @@@@@@@@@@@@@@@@@@*                                  
+                     .*@@@@@@@@@@@-  @@@@@@@@@@@@@@@@@@*                                  
+                   .*@@@@@@@@@@@@@-  @@@@@@@@@@@@@@@@@@*                                  
+                  +@@@@@@@@@@@@@@%:  @@@@@@@@@@@@@@@@@@*                                  
+                 #@@@@@@@@@@@#+:     @@@@@@@@@@@@@@@@@@*                                  
+                #@@@@@@@@@@%.        @@@@@@@@@@@@@@@@@@*                                  
+               -@@@@@@@@@@@%.        @@@@@@@@@@@@@@@@@@*                                  
+               =@@@@@@@@@@@@@#=:     =*#%@@@@@@@@@@@@@@*                                  
+               .@@@@@@@@@@@@@@@@@%*+-:.    .:-=++*#%@@@*                                  
+                :@@@@@@@@#@@@@@@@@@@@@@@@%#*+==-::.                                       
+                  =%@@@@@%-#@@@@@@@@@@@@@@@@@@@@@@@@@@%%##*+=--:.                         
+                    .=#@@@# :#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%#+-.                   
+                        :-+=  .=#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#-                
+                                   ...::::::::::----==++**#%@@@@@@@@@@@@@@+               
+                                     *#########***#####+     .=#@@@@@@@*@@+               
+                                     @@@@@@@@@@@@@@@@@@*       .@@@@@@%-@*                
+                                     @@@@@@@@@@@@@@@@@@*      =@@@@@@%.-:                 
+                                     @@@@@@@@@@@@@@@@@@*    =%@@@@@@*                     
+                                     @@@@@@@@@@@@@@@@@%-  -%@@@@@@%:                      
+                                     @@@@@@@@@@@@@@@#:  =%@@@@@@*:                        
+                                     @@@@@@@@@@@@@#: .+@@@@@@#=                           
+                                     @@@@@@@@@@%+. .*@@@@@%=.                             
+                                     @@@@@@@@#-  -#@@@@%+.                                
+                                     @@@@@@#:  =%@@@%+:                                      
+                                     @@@@*. .+@@@%+:                                      
+                                     @%=  :*@@*=.                                         
+                                     :  =%@*-                                             
+                                     .+#+:                                                
+                                   :--.                                                                         
+"@
+
+# Define variables
+$MyWallpaper = "\\VIPRTECH-SERVER\Testing Software\TESTING\background-new.png"
+$DiskInfoPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\DiskInfo64K.exe"
+$OCCTPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\OCCT\OCCTapp.exe"
+$HeavyLoadPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\HeavyLoad.exe"
+$HWInfoPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\HWiNFO64.exe"
+$CDMarkPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\CrystalDiskMark8\DiskMark64.exe"
+
+# Set wallpaper
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class Wallpaper {
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+
+    public static void SetWallpaper(string thePath) {
+        SystemParametersInfo(20, 0, thePath, 3);
+    }
+}
+"@
+
+[Wallpaper]::SetWallpaper($MyWallpaper)
+
+# Display WiFi Password
+Write-Host "WiFi Password: ___`n"
+
+# Open Disk Management
+Start-Process diskmgmt.msc
+
+# Activate Windows
+$keys = @(
+    "G4HD8-NY6VB-4YK63-7P99V-CYT6Y"
+)
+
+$result = $null
+foreach ($key in $keys) {
+    $result = slmgr /ipk $key
+    if ($result -match "successfully") {
+        break
+    }
+}
+
+# Open Windows activation settings
+Start-Process "ms-settings:activation"
+
+# Get system information
+$processor = Get-CimInstance -ClassName Win32_Processor -Property Name, MaxClockSpeed | Select-Object -Property Name, MaxClockSpeed
+$bios = Get-CimInstance -ClassName Win32_BIOS -Property SMBIOSBIOSVersion, Manufacturer, Version
+$videoController = Get-CimInstance -ClassName Win32_VideoController -Property Name
+$logicalDisks = Get-CimInstance -ClassName Win32_LogicalDisk |
+    Select-Object DeviceID, MediaType, @{
+        Name = "Size (GB)";
+        Expression = { [math]::Round($_.Size / 1GB, 2) }
+    }, @{
+        Name = "FreeSpace (GB)";
+        Expression = { [math]::Round($_.FreeSpace / 1GB, 2) }
+    }
+
+$systemMemory = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory
+$systemMemory = [math]::Round($systemMemory / 1GB, 2)
+
+# Display system information
+Write-Host "System Information:"
+Write-Host
+Write-Host "CPU:"
+$processor | Format-Table -AutoSize | Out-String
+Write-Host
+Write-Host "RAM: $systemMemory GB"
+Write-Host
+Write-Host "GPU:"
+$videoController | Format-Table -AutoSize | Out-String
+Write-Host
+Write-Host "Hard Drives:"
+$logicalDisks | Format-Table -AutoSize | Out-String
+
+# Prompt the user for confirmation twice
+#$confirmation = Read-Host "This script will format drive 0 and partition it to its maximum size. This action cannot be undone. Are you sure you want to continue? (Y/N)"
+
+#if ($confirmation -eq "Y" -or $confirmation -eq "y") {
+#    $confirmation2 = Read-Host "Please confirm once again by typing 'YES' to proceed:"
+
+#    if ($confirmation2 -eq "YES") {
+#        # Get the disk to be formatted
+#        $disk = Get-Disk -Number 0
+
+#       # Check if the disk is already initialized 
+#       if (-not $disk.IsInitialized) {
+#            # Initialize the disk
+#            Initialize-Disk -Number 0 -PartitionStyle GPT
+#        }
+#
+#        # Clean the disk
+#        $disk | Clear-Disk -RemoveData -Confirm:$false
+#
+#        # Create a partition using the entire disk size
+#        $partition = New-Partition -DiskNumber 0 -UseMaximumSize
+#
+#        # Format the partition with NTFS file system
+#       Format-Volume -Partition $partition -FileSystem NTFS -Confirm:$false
+#
+#       Write-Host "Drive 0 has been formatted and partitioned to its maximum size."
+#    }
+#    else {
+#        Write-Host "Operation canceled. Drive 0 was not formatted."
+#    }
+#}
+#else {
+#    Write-Host "Operation canceled. Drive 0 was not formatted."
+#}
+
+# Open file paths
+Start-Process -FilePath $OCCTPath
+Start-Process -FilePath $DiskInfoPath
+Start-Process -FilePath $HWInfoPath
+Start-Process -FilePath $HeavyLoadPath
+Start-Process -FilePath $CDMarkPath
+
+Read-Host -Prompt "Press Enter to exit"
