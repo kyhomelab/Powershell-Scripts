@@ -78,7 +78,7 @@ $HWInfoPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\HWiNFO64.
 $CDMarkPath = "\\VIPRTECH-SERVER\Testing Software\TESTING\Applications\CrystalDiskMark8\DiskMark64.exe"
 
 # Display WiFi Password
-Write-Host "WiFi Password: wittygadfly758`n"
+Write-Host "WiFi Password: ____`n"
 
 # Open Disk Management
 Start-Process diskmgmt.msc
